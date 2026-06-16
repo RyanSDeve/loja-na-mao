@@ -17,6 +17,8 @@ No Supabase, abra o SQL Editor e rode o conteúdo de:
 supabase/schema.sql
 ```
 
+Se o checkout mostrar erro `409 Conflict` ao salvar `order_items`, rode novamente o `schema.sql`. A versão atual salva o nome do produto no item do pedido e não deixa um produto excluído quebrar pedidos novos.
+
 Se aparecerem produtos antigos da primeira versão da demo, rode também:
 
 ```text

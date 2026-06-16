@@ -2557,7 +2557,8 @@ class CartItem {
   Map<String, dynamic> toMap(String orderId) {
     return {
       'order_id': orderId,
-      'product_id': product.id,
+      'product_id': _uuidPattern.hasMatch(product.id) ? product.id : null,
+      'product_name': product.name,
       'quantity': quantity,
       'unit_price': product.price,
     };
@@ -2645,6 +2646,10 @@ class OrderSummary {
 String money(double value) {
   return NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(value);
 }
+
+final _uuidPattern = RegExp(
+  r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$',
+);
 
 String _whatsappUrl(String phone, OrderDraft draft) {
   final items = draft.items

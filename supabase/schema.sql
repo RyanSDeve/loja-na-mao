@@ -39,11 +39,21 @@ create table if not exists public.orders (
 create table if not exists public.order_items (
   id uuid primary key default gen_random_uuid(),
   order_id uuid not null references public.orders(id) on delete cascade,
-  product_id uuid not null references public.products(id),
+  product_id uuid,
+  product_name text not null,
   quantity integer not null check (quantity > 0),
   unit_price numeric(10, 2) not null check (unit_price >= 0),
   created_at timestamptz not null default now()
 );
+
+alter table public.order_items
+  add column if not exists product_name text not null default 'Produto';
+
+alter table public.order_items
+  alter column product_id drop not null;
+
+alter table public.order_items
+  drop constraint if exists order_items_product_id_fkey;
 
 alter table public.stores enable row level security;
 alter table public.products enable row level security;
@@ -141,3 +151,5 @@ and not exists (
   where existing.store_id = s.id
     and existing.name = p.name
 );
+
+notify pgrst, 'reload schema';

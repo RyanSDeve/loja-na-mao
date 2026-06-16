@@ -94,7 +94,7 @@ Tabelas principais:
 - `stores`: dados da loja;
 - `products`: catálogo;
 - `orders`: pedidos;
-- `order_items`: itens do pedido.
+- `order_items`: itens do pedido, com nome e preço salvos como histórico da venda.
 
 ## Como rodar
 
