@@ -1,78 +1,121 @@
 # Loja na Mao
 
-Projeto de portfolio Flutter + Supabase pensado para captar clientes no 99freelas.
+App demo de catalogo, carrinho e pedidos para pequenos comercios, criado com Flutter e Supabase.
 
-> Demo comercial: catalogo, carrinho, pedido no WhatsApp e backend Supabase para pequenos comercios.
+> Projeto de portfolio para mostrar uma solucao comercial real: o cliente escolhe produtos, monta o pedido, envia pelo WhatsApp e o pedido fica registrado no backend.
 
-## Proposta
+## Links
 
-Um aplicativo white-label para pequenos comercios venderem pelo celular:
+- Demo web: em breve
+- Repositorio: https://github.com/RyanSDeve/loja-na-mao
+- Stack: Flutter, Dart, Supabase, PostgreSQL, WhatsApp
 
-- Vitrine de produtos com busca e filtros.
-- Carrinho e resumo do pedido.
-- Envio do pedido para WhatsApp.
-- Registro do lead/pedido no Supabase.
-- Painel simples para o lojista acompanhar pedidos recentes.
-- Estrutura pronta para evoluir para login, pagamento, estoque e notificacoes.
+## Problema
 
-## Por que esse projeto ajuda no 99freelas
+Muitos pequenos comercios vendem pelo WhatsApp, mas recebem pedidos desorganizados, sem padrao e sem historico centralizado. Isso atrasa o atendimento e dificulta acompanhar pedidos.
 
-Ele mostra algo que o cliente entende rapido: mais pedidos, catalogo profissional e atendimento organizado. Tambem mostra sua stack real:
+## Solucao
 
-- Flutter/Dart para app mobile.
-- Supabase para banco, auth e backend.
-- PostgreSQL com tabelas e politicas.
-- Integração com WhatsApp.
-- Arquitetura simples, facil de explicar e evoluir.
+O Loja na Mao e uma vitrine digital simples para negocios locais:
+
+- catalogo de produtos com busca e categorias;
+- carrinho com resumo do pedido;
+- checkout com dados do cliente;
+- envio do pedido formatado para WhatsApp;
+- registro do pedido no Supabase;
+- painel simples de pedidos recentes.
+
+## Screenshots
+
+Adicione os prints finais nesta pasta:
+
+```text
+assets/screenshots/
+```
+
+Sugestao de prints:
+
+| Tela | Arquivo |
+| --- | --- |
+| Vitrine inicial | `assets/screenshots/01-vitrine.png` |
+| Busca/filtros | `assets/screenshots/02-busca-filtros.png` |
+| Checkout | `assets/screenshots/03-checkout.png` |
+| Painel de pedidos | `assets/screenshots/04-painel-pedidos.png` |
+
+## Funcionalidades
+
+- Modo demo sem Supabase, usando dados locais.
+- Modo conectado ao Supabase via `--dart-define`.
+- Tabelas para lojas, produtos, pedidos e itens do pedido.
+- Row Level Security habilitado.
+- Politicas para leitura publica do catalogo e criacao de pedidos.
+- Layout responsivo para mobile e web.
+
+## Backend Supabase
+
+O schema inicial esta em:
+
+```text
+supabase/schema.sql
+```
+
+Tabelas principais:
+
+- `stores`: dados da loja;
+- `products`: catalogo;
+- `orders`: pedidos;
+- `order_items`: itens do pedido.
 
 ## Como rodar
 
-No terminal local, rode:
+Instale as dependencias:
 
 ```bash
 flutter pub get
-flutter run
 ```
 
-Para rodar no navegador:
+Rode em modo demo:
 
 ```bash
 flutter run -d chrome
 ```
 
-Para conectar no Supabase:
+Rode conectado ao Supabase:
 
 ```bash
-flutter run --dart-define=SUPABASE_URL=SUA_URL --dart-define=SUPABASE_ANON_KEY=SUA_ANON_KEY
+flutter run -d chrome --dart-define=SUPABASE_URL=SUA_URL --dart-define=SUPABASE_ANON_KEY=SUA_ANON_KEY
 ```
 
-Se nao passar as variaveis, o app roda em modo demonstracao com dados locais.
+Gere build web:
 
-## Backend Supabase
+```bash
+flutter build web --release --dart-define=SUPABASE_URL=SUA_URL --dart-define=SUPABASE_ANON_KEY=SUA_ANON_KEY
+```
 
-O SQL inicial esta em `supabase/schema.sql`.
+O build fica em:
 
-Fluxo sugerido:
+```text
+build/web
+```
 
-1. Criar um projeto no Supabase.
-2. Abrir SQL Editor.
-3. Rodar o conteudo de `supabase/schema.sql`.
-4. Inserir produtos de exemplo.
-5. Rodar o app com `--dart-define`.
+## Como apresentar para clientes
 
-## Pitch para colocar no portfolio
+Pitch curto:
 
-> App de catalogo e pedidos para pequenos comercios, feito em Flutter com backend Supabase. O cliente consegue divulgar produtos, receber pedidos pelo WhatsApp e consultar os pedidos em um painel simples. Projeto pensado para negocios locais que precisam vender online sem contratar um ecommerce completo.
+> Desenvolvi uma demo de app para pequenos comercios venderem pelo WhatsApp com catalogo, carrinho e pedidos salvos no Supabase. A mesma estrutura pode ser adaptada para restaurantes, lojas, docerias, servicos locais e pequenos negocios.
 
-## Proximas evolucoes boas para portfolio
+## Proximas evolucoes
 
 - Login do lojista com Supabase Auth.
-- Upload de fotos no Supabase Storage.
-- Controle de estoque.
+- Cadastro e edicao de produtos pelo app.
+- Upload de fotos com Supabase Storage.
 - Status do pedido em tempo real.
-- Area administrativa completa.
-- Deploy web para demonstracao publica.
+- Dashboard de vendas.
+- Tema personalizavel por loja.
 
-## Guia passo a passo
+## Documentacao do portfolio
 
-Veja o guia completo em `docs/passo-a-passo-publicacao.md`.
+- [Passo a passo de publicacao](docs/passo-a-passo-publicacao.md)
+- [Checklist de portfolio](docs/checklist-portfolio.md)
+- [Roteiro de video](docs/roteiro-video.md)
+- [Texto para 99freelas](docs/texto-99freelas.md)

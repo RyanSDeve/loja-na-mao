@@ -1,169 +1,142 @@
-# Passo a passo para transformar em portfolio
+# Passo a passo para publicar o portfolio
 
-Este projeto foi pensado para ser uma vitrine do que voce sabe fazer com Flutter, FlutterFlow como stack de trabalho, Supabase e app comercial.
+Este guia assume que o GitHub e o projeto Supabase ja foram criados.
 
-## 1. Criar repositorio no GitHub
+## Estado atual
 
-Faz sentido criar um repositorio publico, sim.
+- GitHub: `https://github.com/RyanSDeve/loja-na-mao`
+- Supabase: projeto `loja-na-mao-demo`
+- App: Flutter web/mobile com modo demo e modo Supabase
+- Proximo objetivo: gerar prova visual e publicar um link de demonstracao
 
-Motivo:
+## 1. Validar o Supabase
 
-- cliente ve que voce tem projeto real;
-- voce pode colocar o link no 99freelas;
-- o README vira uma pagina de apresentacao;
-- mostra organizacao, documentacao e cuidado tecnico;
-- facilita evoluir o projeto aos poucos.
-
-Nome sugerido do repositorio:
+No Supabase, abra o SQL Editor e rode o conteudo de:
 
 ```text
-loja-na-mao-flutter-supabase
+supabase/schema.sql
 ```
 
-Descricao sugerida:
+Depois, confira no Table Editor:
 
-```text
-App demo de catalogo, carrinho e pedidos para pequenos comercios usando Flutter e Supabase.
-```
+- `stores`
+- `products`
+- `orders`
+- `order_items`
 
-Depois de criar o repositorio no GitHub, rode:
+## 2. Rodar conectado ao Supabase
+
+No terminal do projeto:
 
 ```bash
-git add .
-git commit -m "Cria app demo Loja na Mao"
-git branch -M main
-git remote add origin URL_DO_SEU_REPOSITORIO
-git push -u origin main
-```
-
-## 2. Criar projeto Supabase para demo
-
-Faz sentido criar um projeto Supabase so para demo, sim.
-
-Motivo:
-
-- voce mostra backend real, nao so tela bonita;
-- pedidos podem ser registrados de verdade;
-- voce pratica PostgreSQL, RLS e estrutura de tabelas;
-- no 99freelas isso diferencia voce de quem so monta interface.
-
-Cuidados:
-
-- nao use dados pessoais reais;
-- nao coloque chave secreta no GitHub;
-- use apenas a anon key no app;
-- deixe RLS ligado;
-- trate esse Supabase como ambiente descartavel de demonstracao.
-
-Passos:
-
-1. Entre no Supabase.
-2. Crie um novo projeto.
-3. Nome sugerido: `loja-na-mao-demo`.
-4. Espere o projeto ficar pronto.
-5. Abra o SQL Editor.
-6. Cole e rode o conteudo de `supabase/schema.sql`.
-7. Va em Project Settings > API.
-8. Copie a Project URL e a anon public key.
-9. Rode o app usando `--dart-define`.
-
-Comando:
-
-```bash
+flutter pub get
 flutter run -d chrome --dart-define=SUPABASE_URL=SUA_PROJECT_URL --dart-define=SUPABASE_ANON_KEY=SUA_ANON_KEY
 ```
 
-## 3. Rodar como demo web
+Teste:
 
-Para portfolio, o melhor primeiro alvo e web. Cliente nao precisa instalar APK.
+1. Adicionar produto ao carrinho.
+2. Abrir checkout.
+3. Preencher dados ficticios.
+4. Registrar pedido.
+5. Conferir se abriu o WhatsApp.
+6. Conferir se `orders` recebeu o pedido.
+7. Conferir se `order_items` recebeu os itens.
+
+## 3. Tirar prints
+
+Salve os prints em:
+
+```text
+assets/screenshots/
+```
+
+Use estes nomes:
+
+```text
+01-vitrine.png
+02-busca-filtros.png
+03-checkout.png
+04-painel-pedidos.png
+```
+
+Depois atualize o README para exibir as imagens.
+
+## 4. Gravar video curto
+
+Use o roteiro em:
+
+```text
+docs/roteiro-video.md
+```
+
+Objetivo: provar o fluxo completo em 60 a 90 segundos.
+
+## 5. Gerar build web
 
 Rode:
 
 ```bash
-flutter run -d chrome
+flutter build web --release --dart-define=SUPABASE_URL=SUA_PROJECT_URL --dart-define=SUPABASE_ANON_KEY=SUA_ANON_KEY
 ```
 
-Mesmo sem Supabase, o app roda em modo demo com dados locais.
-
-Depois que estiver tudo certo:
-
-```bash
-flutter build web --release
-```
-
-O build sai em:
+O resultado fica em:
 
 ```text
 build/web
 ```
 
-## 4. Onde hospedar
+## 6. Publicar no Netlify
 
-Opcoes boas:
+Caminho simples:
 
-- Firebase Hosting;
-- Netlify;
-- Vercel;
-- GitHub Pages.
+1. Entre no Netlify.
+2. Va em Add new site.
+3. Escolha Deploy manually.
+4. Arraste a pasta `build/web`.
+5. Copie a URL gerada.
+6. Coloque a URL no README.
 
-Para comecar rapido, Netlify costuma ser simples:
+## 7. Atualizar README com o link
 
-1. Gere `flutter build web --release`.
-2. Entre no Netlify.
-3. Arraste a pasta `build/web`.
-4. Copie o link publicado.
-5. Coloque o link no README e no perfil do 99freelas.
-
-## 5. O que colocar no perfil do 99freelas
-
-Coloque uma frase objetiva:
+No README, troque:
 
 ```text
-Veja meu projeto demo: app de catalogo e pedidos feito com Flutter e Supabase, com carrinho, WhatsApp e backend real.
+Demo web: em breve
 ```
 
-Coloque tambem:
+por:
 
-- link do app publicado;
+```text
+Demo web: SUA_URL_PUBLICA
+```
+
+## 8. Fazer commit final
+
+Depois de adicionar prints e link:
+
+```bash
+git add .
+git commit -m "Prepara portfolio publico"
+git push
+```
+
+## 9. Colocar no 99freelas
+
+Use:
+
+- link da demo web;
 - link do GitHub;
-- video curto demonstrando o fluxo;
-- prints da tela inicial, carrinho, checkout e painel de pedidos.
+- video curto;
+- texto em `docs/texto-99freelas.md`.
 
-## 6. Roteiro do video
+## Ordem recomendada
 
-Tempo ideal: 60 a 90 segundos.
-
-Roteiro:
-
-1. "Esse e um app demo que criei para pequenos comercios."
-2. Mostrar tela inicial.
-3. Buscar produto.
-4. Filtrar categoria.
-5. Adicionar item no carrinho.
-6. Abrir checkout.
-7. Mostrar envio para WhatsApp.
-8. Abrir tela de pedidos.
-9. "O backend foi estruturado com Supabase e PostgreSQL."
-
-## 7. Evolucoes que valem muito
-
-Quando quiser deixar mais forte:
-
-- criar area admin com login;
-- permitir cadastrar produtos pelo app;
-- upload de fotos no Supabase Storage;
-- status do pedido em tempo real;
-- dashboard de vendas;
-- tema customizavel por loja;
-- deploy web publico.
-
-## 8. Ordem recomendada para voce
-
-1. Rodar local no Chrome.
-2. Criar Supabase demo.
-3. Conectar app no Supabase.
-4. Criar repositorio GitHub.
-5. Subir codigo.
-6. Publicar web.
-7. Gravar video.
-8. Colocar no 99freelas.
+1. Validar Supabase.
+2. Rodar app conectado.
+3. Gerar prints.
+4. Gravar video.
+5. Publicar web.
+6. Atualizar README.
+7. Subir commit.
+8. Divulgar no 99freelas.
