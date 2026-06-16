@@ -1448,7 +1448,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
       await launchUrl(Uri.parse(_whatsappUrl(widget.store.whatsapp, draft)));
 
       if (mounted) Navigator.of(context).pop(true);
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
       setState(() => isSending = false);
       ScaffoldMessenger.of(context).showSnackBar(
