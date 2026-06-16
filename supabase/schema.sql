@@ -52,6 +52,10 @@ alter table public.order_items enable row level security;
 
 drop policy if exists "Public stores are readable" on public.stores;
 drop policy if exists "Public products are readable" on public.products;
+drop policy if exists "Demo catalog products are readable" on public.products;
+drop policy if exists "Demo catalog products can be created" on public.products;
+drop policy if exists "Demo catalog products can be updated" on public.products;
+drop policy if exists "Demo catalog products can be deleted" on public.products;
 drop policy if exists "Anyone can create orders" on public.orders;
 drop policy if exists "Orders are readable for demo panel" on public.orders;
 drop policy if exists "Anyone can create order items" on public.order_items;
@@ -62,10 +66,26 @@ create policy "Public stores are readable"
   to anon, authenticated
   using (true);
 
-create policy "Public products are readable"
+create policy "Demo catalog products are readable"
   on public.products for select
   to anon, authenticated
-  using (is_available = true);
+  using (true);
+
+create policy "Demo catalog products can be created"
+  on public.products for insert
+  to anon, authenticated
+  with check (true);
+
+create policy "Demo catalog products can be updated"
+  on public.products for update
+  to anon, authenticated
+  using (true)
+  with check (true);
+
+create policy "Demo catalog products can be deleted"
+  on public.products for delete
+  to anon, authenticated
+  using (true);
 
 create policy "Anyone can create orders"
   on public.orders for insert
@@ -89,7 +109,7 @@ create policy "Order items are readable for demo panel"
 
 insert into public.stores (name, slug, whatsapp, headline, delivery_minutes, minimum_order)
 values (
-  'Doce Encanto Demo',
+  'Doce Encanto',
   'loja-demo',
   '5599999999999',
   'Doces artesanais, kits presenteáveis e pedidos organizados para vender mais pelo WhatsApp.',
@@ -110,7 +130,7 @@ from public.stores s
 cross join (
   values
     ('Caixa Brigadeiros Gourmet', 'Nove brigadeiros artesanais em embalagem pronta para presente.', 'Mais pedidos', 49.90, null),
-    ('Kit Presente Especial', 'Selecao de doces finos com fita, tag e cartao para mensagem.', 'Presentes', 89.90, null),
+    ('Kit Presente Especial', 'Seleção de doces finos com fita, tag e cartão para mensagem.', 'Presentes', 89.90, null),
     ('Torta Chocolate Belga', 'Torta premium para celebrações, com cobertura cremosa e crocante.', 'Premium', 139.90, null),
     ('Combo Café da Tarde', 'Mini tortas e docinhos para reuniões pequenas ou entrega rápida.', 'Promoções', 64.90, null)
 ) as p(name, description, category, price, image_url)

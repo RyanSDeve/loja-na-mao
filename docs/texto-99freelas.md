@@ -6,13 +6,13 @@ App de catálogo e pedidos para pequenos comércios
 
 ## Descrição curta
 
-Demo de app para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho, checkout e painel de pedidos. A demonstração usa uma doceria premium como exemplo, mas a estrutura pode ser adaptada para outros negócios.
+Demo de app para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho, checkout, painel de pedidos e gestão de produtos. A demonstração usa uma doceria premium como exemplo, mas a estrutura pode ser adaptada para outros negócios.
 
 ## Descrição completa
 
 Criei este projeto para demonstrar uma solução real para negócios locais que ainda recebem pedidos de forma manual pelo WhatsApp. A demo simula uma doceria chamada Doce Encanto, com produtos presenteáveis, carrinho e pedido estruturado.
 
-O app permite que o cliente veja produtos, filtre categorias, monte um carrinho, informe os dados de entrega e envie o pedido formatado para o WhatsApp da loja. Ao mesmo tempo, o pedido fica registrado em um painel simples, permitindo que o lojista acompanhe os pedidos recentes.
+O app permite que o cliente veja produtos, filtre categorias, monte um carrinho, informe os dados de entrega e envie o pedido formatado para o WhatsApp da loja. Ao mesmo tempo, o pedido fica registrado em um painel simples, permitindo que o lojista acompanhe os pedidos recentes e atualize o próprio catálogo.
 
 Funcionalidades demonstradas:
 
@@ -23,6 +23,7 @@ Funcionalidades demonstradas:
 - envio do pedido para WhatsApp;
 - registro do pedido no Supabase;
 - painel de pedidos recentes;
+- cadastro, edição, ativação e exclusão de produtos;
 - layout responsivo para web/mobile.
 
 Stack:
@@ -49,9 +50,9 @@ Para começar de forma segura, eu sugeriria um MVP com:
 - fluxo de pedido, orçamento ou agendamento;
 - painel simples para acompanhamento;
 - layout responsivo e fácil de usar;
-- comunicacao clara durante cada etapa.
+- comunicação clara durante cada etapa.
 
-Tenho um projeto demo parecido no meu portfólio, com catálogo, carrinho, WhatsApp e painel de pedidos. Posso adaptar essa estrutura para o seu negócio.
+Tenho um projeto demo parecido no meu portfólio, com catálogo, carrinho, WhatsApp, painel de pedidos e gestão de produtos. Posso adaptar essa estrutura para o seu negócio.
 
 ## Frase curta para bio/perfil
 

@@ -7,7 +7,7 @@ App demo para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho
 ## Links
 
 - Demo web: em breve
-- Repositorio: https://github.com/RyanSDeve/loja-na-mao
+- Repositório: https://github.com/RyanSDeve/loja-na-mao
 - Stack: Flutter, Dart, Supabase, PostgreSQL, WhatsApp
 
 ## Problema
@@ -23,7 +23,8 @@ O Loja na Mão é uma base white-label para negócios locais. Nesta demo, ele ap
 - checkout com dados do cliente;
 - envio do pedido formatado para WhatsApp;
 - registro do pedido para acompanhamento;
-- painel simples de pedidos recentes.
+- painel do lojista com pedidos recentes;
+- cadastro, edição, ativação e exclusão de produtos.
 
 ## Resultado esperado para o cliente
 
@@ -48,7 +49,7 @@ Sugestão de prints:
 | Vitrine inicial | `assets/screenshots/01-vitrine.png` |
 | Busca/filtros | `assets/screenshots/02-busca-filtros.png` |
 | Checkout | `assets/screenshots/03-checkout.png` |
-| Painel de pedidos | `assets/screenshots/04-painel-pedidos.png` |
+| Painel do lojista | `assets/screenshots/04-painel-lojista.png` |
 
 ## Visual da demo
 
@@ -67,9 +68,12 @@ Ele foi criado para dar contexto comercial ao app: produto local, embalagem pres
 - Modo demo sem Supabase, usando dados locais.
 - Modo conectado ao Supabase via `--dart-define`.
 - Tabelas para lojas, produtos, pedidos e itens do pedido.
+- Painel de catálogo com criação, edição, ativação/desativação e exclusão de produtos.
 - Row Level Security habilitado.
-- Políticas para leitura pública do catálogo e criação de pedidos.
+- Políticas de demonstração para leitura pública, criação de pedidos e manutenção do catálogo.
 - Layout responsivo para mobile e web.
+
+> Observação de segurança: as políticas atuais facilitam a demonstração pública do CRUD. Em um app vendido para cliente real, o próximo passo é adicionar login do lojista com Supabase Auth e restringir alterações por usuário/loja.
 
 ## Backend Supabase
 
@@ -94,7 +98,7 @@ Tabelas principais:
 
 ## Como rodar
 
-Instale as dependencias:
+Instale as dependências:
 
 ```bash
 flutter pub get
@@ -133,7 +137,6 @@ Pitch curto:
 ## Próximas evoluções
 
 - Login do lojista com Supabase Auth.
-- Cadastro e edição de produtos pelo app.
 - Upload de fotos com Supabase Storage.
 - Status do pedido em tempo real.
 - Dashboard de vendas.

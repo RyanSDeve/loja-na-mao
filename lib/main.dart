@@ -160,7 +160,7 @@ class _StorefrontPageState extends State<StorefrontPage> {
         return Scaffold(
           appBar: PortfolioTopBar(
             itemCount: cart.itemCount,
-            onOrders: () => _openOrders(context, data.store.id),
+            onOrders: () => _openAdmin(context, data.store),
             onCart: () => _openCheckout(context, data.store),
           ),
           body: RefreshIndicator(
@@ -209,7 +209,7 @@ class _StorefrontPageState extends State<StorefrontPage> {
                                       cart: cart,
                                       store: data.store,
                                       onCheckout: () => _openCheckout(context, data.store),
-                                      onOrders: () => _openOrders(context, data.store.id),
+                                      onOrders: () => _openAdmin(context, data.store),
                                     ),
                                   ),
                                 ],
@@ -253,7 +253,7 @@ class _StorefrontPageState extends State<StorefrontPage> {
     });
     try {
       await future;
-    } catch (_) {
+    } catch (error) {
       // FutureBuilder renders the error state; the refresh gesture only needs to finish.
     }
   }
@@ -287,12 +287,15 @@ class _StorefrontPageState extends State<StorefrontPage> {
     }
   }
 
-  void _openOrders(BuildContext context, String storeId) {
-    Navigator.of(context).push(
+  Future<void> _openAdmin(BuildContext context, Store store) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => OrdersPage(repository: repository, storeId: storeId),
+        builder: (_) => AdminPanelPage(repository: repository, store: store),
       ),
     );
+    if (mounted) {
+      await _reload();
+    }
   }
 }
 
@@ -350,9 +353,9 @@ class PortfolioTopBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          tooltip: 'Pedidos',
+          tooltip: 'Painel do lojista',
           onPressed: onOrders,
-          icon: const Icon(Icons.receipt_long_outlined),
+          icon: const Icon(Icons.dashboard_customize_outlined),
         ),
         IconButton(
           tooltip: 'Carrinho',
@@ -400,8 +403,6 @@ class StorefrontMainColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PortfolioDemoBanner(),
-        const SizedBox(height: 14),
         StoreHero(store: store),
         const SizedBox(height: 12),
         const BusinessImpactStrip(),
@@ -428,51 +429,6 @@ class StorefrontMainColumn extends StatelessWidget {
             onAdd: onAdd,
           ),
       ],
-    );
-  }
-}
-
-class PortfolioDemoBanner extends StatelessWidget {
-  const PortfolioDemoBanner({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF8E8),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE8D6A1)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(Icons.workspace_premium_outlined, color: Color(0xFF8A6400)),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Demonstração de app para pequenos negócios',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w900,
-                        color: const Color(0xFF3F2E00),
-                      ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  'Catálogo, carrinho, pedido no WhatsApp e painel para acompanhar tudo em um só lugar.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF5C470A),
-                        height: 1.25,
-                      ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -734,6 +690,34 @@ class StoreStatusChip extends StatelessWidget {
         isOpen ? 'Aberto agora' : 'Fechado',
         style: TextStyle(
           color: isOpen ? const Color(0xFF166534) : const Color(0xFF9F1239),
+          fontSize: 12,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+}
+
+class ProductAvailabilityChip extends StatelessWidget {
+  const ProductAvailabilityChip({required this.isAvailable, super.key});
+
+  final bool isAvailable;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+      decoration: BoxDecoration(
+        color: isAvailable ? const Color(0xFFDCFCE7) : const Color(0xFFF1F5F9),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: isAvailable ? const Color(0xFFBBF7D0) : const Color(0xFFE2E8F0),
+        ),
+      ),
+      child: Text(
+        isAvailable ? 'Ativo' : 'Oculto',
+        style: TextStyle(
+          color: isAvailable ? const Color(0xFF166534) : const Color(0xFF475569),
           fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
@@ -1138,8 +1122,8 @@ class PortfolioProofPanel extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: onOrders,
-                    icon: const Icon(Icons.receipt_long_outlined),
-                    label: const Text('Ver painel de pedidos'),
+                    icon: const Icon(Icons.dashboard_customize_outlined),
+                    label: const Text('Abrir painel do lojista'),
                   ),
                 ),
               ],
@@ -1464,7 +1448,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
       await launchUrl(Uri.parse(_whatsappUrl(widget.store.whatsapp, draft)));
 
       if (mounted) Navigator.of(context).pop(true);
-    } catch (error) {
+    } catch (_) {
       if (!mounted) return;
       setState(() => isSending = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1476,29 +1460,79 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
   }
 }
 
-class OrdersPage extends StatelessWidget {
-  const OrdersPage({required this.repository, required this.storeId, super.key});
+class AdminPanelPage extends StatelessWidget {
+  const AdminPanelPage({
+    required this.repository,
+    required this.store,
+    super.key,
+  });
+
+  final StoreRepository repository;
+  final Store store;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Painel do lojista'),
+          bottom: const TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.receipt_long_outlined), text: 'Pedidos'),
+              Tab(icon: Icon(Icons.inventory_2_outlined), text: 'Produtos'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            OrdersPanel(repository: repository, storeId: store.id),
+            ProductsAdminTab(repository: repository, store: store),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class OrdersPanel extends StatefulWidget {
+  const OrdersPanel({required this.repository, required this.storeId, super.key});
 
   final StoreRepository repository;
   final String storeId;
 
   @override
+  State<OrdersPanel> createState() => _OrdersPanelState();
+}
+
+class _OrdersPanelState extends State<OrdersPanel> {
+  late Future<List<OrderSummary>> ordersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    ordersFuture = widget.repository.loadOrders(widget.storeId);
+  }
+
+  Future<void> _reload() async {
+    final future = widget.repository.loadOrders(widget.storeId);
+    setState(() => ordersFuture = future);
+    try {
+      await future;
+    } catch (_) {
+      // FutureBuilder renders the error state.
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Painel de pedidos')),
-      body: FutureBuilder<List<OrderSummary>>(
-        future: repository.loadOrders(storeId),
+    return FutureBuilder<List<OrderSummary>>(
+        future: ordersFuture,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return ErrorState(
               message: 'Não foi possível carregar os pedidos.',
-              onRetry: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => OrdersPage(repository: repository, storeId: storeId),
-                  ),
-                );
-              },
+              onRetry: _reload,
             );
           }
           if (!snapshot.hasData) {
@@ -1539,7 +1573,7 @@ class OrdersPage extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: AdminMetricCard(
-                              label: 'Total demo',
+                              label: 'Recebido',
                               value: money(total),
                               icon: Icons.payments_outlined,
                             ),
@@ -1563,8 +1597,243 @@ class OrdersPage extends StatelessWidget {
             ],
           );
         },
+      );
+  }
+}
+
+class ProductsAdminTab extends StatefulWidget {
+  const ProductsAdminTab({required this.repository, required this.store, super.key});
+
+  final StoreRepository repository;
+  final Store store;
+
+  @override
+  State<ProductsAdminTab> createState() => _ProductsAdminTabState();
+}
+
+class _ProductsAdminTabState extends State<ProductsAdminTab> {
+  late Future<List<Product>> productsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    productsFuture = widget.repository.loadProducts(widget.store.id);
+  }
+
+  Future<void> _reload() async {
+    final future = widget.repository.loadProducts(widget.store.id);
+    setState(() => productsFuture = future);
+    try {
+      await future;
+    } catch (_) {
+      // FutureBuilder renders the error state.
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Product>>(
+      future: productsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return ErrorState(
+            message: 'Não foi possível carregar os produtos.',
+            onRetry: _reload,
+          );
+        }
+
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final products = snapshot.data!;
+        final activeProducts = products.where((product) => product.isAvailable).length;
+        final hiddenProducts = products.length - activeProducts;
+        return ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 860),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Catálogo da loja',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(fontWeight: FontWeight.w900),
+                              ),
+                              const SizedBox(height: 4),
+                              const Text(
+                                'Cadastre, edite ou desative produtos sem mexer no código.',
+                                style: TextStyle(color: mutedInk),
+                              ),
+                            ],
+                          ),
+                        ),
+                        FilledButton.icon(
+                          onPressed: () => _openProductForm(),
+                          icon: const Icon(Icons.add),
+                          label: const Text('Produto'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AdminMetricCard(
+                            label: 'Produtos',
+                            value: products.length.toString(),
+                            icon: Icons.inventory_2_outlined,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: AdminMetricCard(
+                            label: 'Na vitrine',
+                            value: activeProducts.toString(),
+                            icon: Icons.visibility_outlined,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: AdminMetricCard(
+                            label: 'Ocultos',
+                            value: hiddenProducts.toString(),
+                            icon: Icons.visibility_off_outlined,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    if (products.isEmpty)
+                      const EmptyProductsAdmin()
+                    else
+                      ...products.map(
+                        (product) => Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ProductAdminCard(
+                            product: product,
+                            onEdit: () => _openProductForm(product: product),
+                            onToggle: () => _toggleProduct(product),
+                            onDelete: () => _deleteProduct(product),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _openProductForm({Product? product}) async {
+    final draft = await showModalBottomSheet<ProductDraft>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => ProductFormSheet(product: product),
+    );
+
+    if (draft == null) return;
+
+    await _runProductAction(
+      () async {
+        await widget.repository.saveProduct(
+          storeId: widget.store.id,
+          draft: draft,
+          productId: product?.id,
+        );
+        await _reload();
+      },
+      successMessage: product == null ? 'Produto cadastrado.' : 'Produto atualizado.',
+    );
+  }
+
+  Future<void> _toggleProduct(Product product) async {
+    await _runProductAction(
+      () async {
+        await widget.repository.saveProduct(
+          storeId: widget.store.id,
+          productId: product.id,
+          draft: ProductDraft(
+            name: product.name,
+            description: product.description,
+            category: product.category,
+            price: product.price,
+            isAvailable: !product.isAvailable,
+          ),
+        );
+        await _reload();
+      },
+      successMessage:
+          product.isAvailable ? 'Produto ocultado da vitrine.' : 'Produto voltou para a vitrine.',
+    );
+  }
+
+  Future<void> _deleteProduct(Product product) async {
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Excluir produto?'),
+        content: Text(
+          'Isso remove "${product.name}" do catálogo. Se ele já apareceu em pedidos, prefira ocultar para preservar o histórico.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Excluir'),
+          ),
+        ],
       ),
     );
+
+    if (shouldDelete != true) return;
+    await _runProductAction(
+      () async {
+        await widget.repository.deleteProduct(product.id);
+        await _reload();
+      },
+      successMessage: 'Produto excluído.',
+    );
+  }
+
+  Future<void> _runProductAction(
+    Future<void> Function() action, {
+    required String successMessage,
+  }) async {
+    try {
+      await action();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(successMessage)),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Não foi possível concluir. Verifique os dados e tente novamente.'),
+        ),
+      );
+    }
   }
 }
 
@@ -1601,6 +1870,290 @@ class AdminMetricCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ProductAdminCard extends StatelessWidget {
+  const ProductAdminCard({
+    required this.product,
+    required this.onEdit,
+    required this.onToggle,
+    required this.onDelete,
+    super.key,
+  });
+
+  final Product product;
+  final VoidCallback onEdit;
+  final VoidCallback onToggle;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProductThumb(category: product.category),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        product.name,
+                        style: const TextStyle(fontWeight: FontWeight.w900),
+                      ),
+                      ProductAvailabilityChip(isAvailable: product.isAvailable),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(product.category, style: const TextStyle(color: emerald)),
+                  const SizedBox(height: 4),
+                  Text(
+                    product.description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: mutedInk),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    money(product.price),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: forest,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Column(
+              children: [
+                IconButton(
+                  tooltip: 'Editar',
+                  onPressed: onEdit,
+                  icon: const Icon(Icons.edit_outlined),
+                ),
+                IconButton(
+                  tooltip: product.isAvailable ? 'Desativar' : 'Ativar',
+                  onPressed: onToggle,
+                  icon: Icon(
+                    product.isAvailable
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                  ),
+                ),
+                IconButton(
+                  tooltip: 'Excluir',
+                  onPressed: onDelete,
+                  icon: const Icon(Icons.delete_outline, color: coral),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EmptyProductsAdmin extends StatelessWidget {
+  const EmptyProductsAdmin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const Icon(Icons.inventory_2_outlined, color: mutedInk, size: 34),
+            const SizedBox(height: 10),
+            Text(
+              'Nenhum produto cadastrado',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Cadastre o primeiro produto para montar a vitrine.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: mutedInk),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductFormSheet extends StatefulWidget {
+  const ProductFormSheet({this.product, super.key});
+
+  final Product? product;
+
+  @override
+  State<ProductFormSheet> createState() => _ProductFormSheetState();
+}
+
+class _ProductFormSheetState extends State<ProductFormSheet> {
+  late final TextEditingController nameController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController categoryController;
+  late final TextEditingController priceController;
+  late bool isAvailable;
+
+  @override
+  void initState() {
+    super.initState();
+    final product = widget.product;
+    nameController = TextEditingController(text: product?.name ?? '');
+    descriptionController = TextEditingController(text: product?.description ?? '');
+    categoryController = TextEditingController(text: product?.category ?? '');
+    priceController = TextEditingController(
+      text: product == null ? '' : product.price.toStringAsFixed(2).replaceAll('.', ','),
+    );
+    isAvailable = product?.isAvailable ?? true;
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    categoryController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 620),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: paper,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+          ),
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 42,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 14),
+                    decoration: BoxDecoration(
+                      color: line,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                ),
+                Text(
+                  widget.product == null ? 'Novo produto' : 'Editar produto',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w900,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Nome do produto',
+                    prefixIcon: Icon(Icons.sell_outlined),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Descrição',
+                    prefixIcon: Icon(Icons.notes_outlined),
+                  ),
+                  minLines: 2,
+                  maxLines: 3,
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: categoryController,
+                  decoration: const InputDecoration(
+                    labelText: 'Categoria',
+                    prefixIcon: Icon(Icons.category_outlined),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: priceController,
+                  decoration: const InputDecoration(
+                    labelText: 'Preço',
+                    prefixIcon: Icon(Icons.payments_outlined),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 8),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Produto visível na vitrine'),
+                  value: isAvailable,
+                  onChanged: (value) => setState(() => isAvailable = value),
+                ),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: _submit,
+                    icon: const Icon(Icons.save_outlined),
+                    label: const Text('Salvar produto'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _submit() {
+    final name = nameController.text.trim();
+    final description = descriptionController.text.trim();
+    final category = categoryController.text.trim();
+    final priceText = priceController.text.trim().replaceAll(',', '.');
+    final price = double.tryParse(priceText);
+
+    if (name.isEmpty || description.isEmpty || category.isEmpty || price == null || price <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha nome, descrição, categoria e preço.')),
+      );
+      return;
+    }
+
+    Navigator.of(context).pop(
+      ProductDraft(
+        name: name,
+        description: description,
+        category: category,
+        price: price,
+        isAvailable: isAvailable,
       ),
     );
   }
@@ -1709,8 +2262,18 @@ class ErrorState extends StatelessWidget {
 }
 
 class StoreRepository {
+  StoreData? _localData;
+
+  StoreData get _demoData => _localData ??= StoreData.demo();
+
   Future<StoreData> loadStore() async {
-    if (!hasSupabaseConfig) return StoreData.demo();
+    if (!hasSupabaseConfig) {
+      final data = _demoData;
+      return StoreData(
+        store: data.store,
+        products: data.products.where((product) => product.isAvailable).toList(),
+      );
+    }
 
     final client = Supabase.instance.client;
     final storeMap = await client
@@ -1729,6 +2292,67 @@ class StoreRepository {
       store: Store.fromMap(storeMap),
       products: productsMap.map((map) => Product.fromMap(map)).toList(),
     );
+  }
+
+  Future<List<Product>> loadProducts(String storeId) async {
+    if (!hasSupabaseConfig) return _demoData.products;
+
+    final response = await Supabase.instance.client
+        .from('products')
+        .select()
+        .eq('store_id', storeId)
+        .order('created_at');
+
+    return response.map((map) => Product.fromMap(map)).toList();
+  }
+
+  Future<void> saveProduct({
+    required String storeId,
+    required ProductDraft draft,
+    String? productId,
+  }) async {
+    if (!hasSupabaseConfig) {
+      final data = _demoData;
+      final products = [...data.products];
+      final product = Product(
+        id: productId ?? 'local-${DateTime.now().microsecondsSinceEpoch}',
+        name: draft.name,
+        description: draft.description,
+        category: draft.category,
+        price: draft.price,
+        isAvailable: draft.isAvailable,
+      );
+
+      if (productId == null) {
+        products.add(product);
+      } else {
+        final index = products.indexWhere((item) => item.id == productId);
+        if (index >= 0) products[index] = product;
+      }
+      _localData = StoreData(store: data.store, products: products);
+      return;
+    }
+
+    final payload = draft.toMap()..['store_id'] = storeId;
+    if (productId == null) {
+      await Supabase.instance.client.from('products').insert(payload);
+      return;
+    }
+
+    await Supabase.instance.client.from('products').update(payload).eq('id', productId);
+  }
+
+  Future<void> deleteProduct(String productId) async {
+    if (!hasSupabaseConfig) {
+      final data = _demoData;
+      _localData = StoreData(
+        store: data.store,
+        products: data.products.where((product) => product.id != productId).toList(),
+      );
+      return;
+    }
+
+    await Supabase.instance.client.from('products').delete().eq('id', productId);
   }
 
   Future<void> createOrder(OrderDraft draft) async {
@@ -1775,7 +2399,7 @@ class StoreData {
     return StoreData(
       store: const Store(
         id: 'demo-store',
-        name: 'Doce Encanto Demo',
+        name: 'Doce Encanto',
         whatsapp: '5599999999999',
         headline:
             'Doces artesanais, kits presenteáveis e pedidos organizados para vender mais pelo WhatsApp.',
@@ -1794,14 +2418,14 @@ class StoreData {
         Product(
           id: '2',
           name: 'Kit Presente Especial',
-          description: 'Selecao de doces finos com fita, tag e cartao para mensagem.',
+          description: 'Seleção de doces finos com fita, tag e cartão para mensagem.',
           category: 'Presentes',
           price: 89.90,
         ),
         Product(
           id: '3',
           name: 'Torta Chocolate Belga',
-          description: 'Torta premium para celebracoes, com cobertura cremosa e crocante.',
+          description: 'Torta premium para celebrações, com cobertura cremosa e crocante.',
           category: 'Premium',
           price: 139.90,
         ),
@@ -1856,6 +2480,7 @@ class Product {
     required this.description,
     required this.category,
     required this.price,
+    this.isAvailable = true,
   });
 
   final String id;
@@ -1863,6 +2488,7 @@ class Product {
   final String description;
   final String category;
   final double price;
+  final bool isAvailable;
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
@@ -1871,7 +2497,34 @@ class Product {
       description: map['description'] as String,
       category: map['category'] as String,
       price: (map['price'] as num).toDouble(),
+      isAvailable: map['is_available'] as bool? ?? true,
     );
+  }
+}
+
+class ProductDraft {
+  const ProductDraft({
+    required this.name,
+    required this.description,
+    required this.category,
+    required this.price,
+    required this.isAvailable,
+  });
+
+  final String name;
+  final String description;
+  final String category;
+  final double price;
+  final bool isAvailable;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'description': description,
+      'category': category,
+      'price': price,
+      'is_available': isAvailable,
+    };
   }
 }
 

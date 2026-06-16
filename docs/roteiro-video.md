@@ -54,15 +54,15 @@ Quando o pedido é registrado, ele fica salvo para acompanhamento e também é e
 
 Clique no botao de registrar.
 
-### 6. Painel de pedidos
+### 6. Painel do lojista
 
 Fale:
 
 ```text
-O lojista também consegue acompanhar os pedidos recentes em um painel simples.
+O lojista também consegue acompanhar pedidos recentes e atualizar o catálogo sem mexer no código.
 ```
 
-Mostre a tela de pedidos.
+Mostre a aba de pedidos, depois a aba de produtos. Edite o preço de um produto ou oculte um item da vitrine.
 
 ### 7. Fechamento
 
@@ -72,10 +72,10 @@ Fale:
 Esse projeto foi feito com Flutter, Dart, Supabase e PostgreSQL. A estrutura pode ser adaptada para restaurantes, lojas, docerias e outros pequenos negócios.
 ```
 
-## Dicas de gravacao
+## Dicas de gravação
 
 - Grave em tela mobile no Chrome DevTools.
-- Use dados ficticios.
+- Use dados fictícios.
 - Não mostre chaves do Supabase.
 - Deixe o zoom em 100%.
 - Grave sem pressa, mas corte pausas longas.

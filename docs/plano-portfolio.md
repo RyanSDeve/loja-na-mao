@@ -28,6 +28,7 @@ O cliente recebe pedidos bagunçados pelo WhatsApp, perde informação, demora p
 - Registro do pedido no Supabase.
 - Envio do pedido formatado para WhatsApp.
 - Painel simples de pedidos recentes.
+- Painel de catálogo com cadastro, edição, ativação e exclusão de produtos.
 - Modo demo sem backend para facilitar apresentação.
 
 ## Supabase usado no projeto
@@ -37,7 +38,8 @@ O cliente recebe pedidos bagunçados pelo WhatsApp, perde informação, demora p
 - `orders`: pedidos recebidos.
 - `order_items`: itens de cada pedido.
 - RLS habilitado.
-- Políticas públicas apenas para leitura de catálogo e criação de pedidos.
+- Políticas de demonstração para leitura de catálogo, criação de pedidos e manutenção dos produtos.
+- Em produção, o painel deve ter login do lojista e regras por loja.
 
 ## Como apresentar no 99freelas
 
@@ -54,17 +56,17 @@ Roteiro de 60 a 90 segundos:
 3. Adicionar produtos no carrinho.
 4. Preencher checkout.
 5. Mostrar pedido indo para WhatsApp.
-6. Abrir painel de pedidos.
-7. Fechar dizendo que o app registra pedidos e pode evoluir para login, estoque, pagamento e notificações.
+6. Abrir painel do lojista.
+7. Criar, editar ou ocultar um produto.
+8. Fechar dizendo que o app registra pedidos, permite atualizar o catálogo e pode evoluir para login, estoque, pagamento e notificações.
 
 ## Melhorias para a versão 2
 
 - Login do lojista com Supabase Auth.
-- Area admin protegida.
-- Cadastro/edição de produtos.
+- Área admin protegida.
 - Upload de imagens com Supabase Storage.
 - Status em tempo real com Supabase Realtime.
-- Relatorio simples de faturamento.
+- Relatório simples de faturamento.
 - Layout adaptado para web para mandar link de demonstração.
 
 ## Pacotes que você pode vender
@@ -79,4 +81,4 @@ Catálogo com painel de pedidos, categorias, busca, Supabase e ajustes de layout
 
 ### Pacote completo
 
-App com login, painel administrativo, upload de imagens, estoque e relatorios.
+App com login, painel administrativo, upload de imagens, estoque e relatórios.

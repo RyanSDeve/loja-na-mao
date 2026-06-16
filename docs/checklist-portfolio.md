@@ -2,26 +2,29 @@
 
 Use este checklist antes de divulgar o projeto no 99freelas.
 
-## Obrigatorio
+## Obrigatório
 
 - [ ] App rodando localmente no Chrome.
 - [ ] Supabase conectado.
 - [ ] Pedido sendo salvo em `orders`.
 - [ ] Itens sendo salvos em `order_items`.
+- [ ] Produto novo sendo criado pelo painel do lojista.
+- [ ] Produto sendo editado pelo painel.
+- [ ] Produto oculto saindo da vitrine.
 - [ ] WhatsApp abrindo com a mensagem formatada.
 - [ ] GitHub público atualizado.
 - [ ] README com descrição clara do problema e da solução.
 - [ ] Demo web publicada.
 - [ ] Link da demo no README.
-- [ ] Quatro prints adicionados ao README ou ao repositorio.
-- [ ] Video curto gravado.
+- [ ] Quatro prints adicionados ao README ou ao repositório.
+- [ ] Vídeo curto gravado.
 
 ## Prints essenciais
 
 1. Vitrine inicial.
 2. Busca ou filtro aplicado.
 3. Checkout com pedido preenchido.
-4. Painel de pedidos com pelo menos um pedido.
+4. Painel do lojista com pedido e catálogo.
 
 ## Antes de mandar para cliente
 
@@ -32,7 +35,7 @@ Use este checklist antes de divulgar o projeto no 99freelas.
 - [ ] Conferir no desktop web.
 - [ ] Conferir se o README abre bem no GitHub.
 
-## Nivel ideal para divulgar
+## Nível ideal para divulgar
 
 O projeto está pronto para divulgar quando você tiver:
 

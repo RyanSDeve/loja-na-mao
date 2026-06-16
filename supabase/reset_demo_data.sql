@@ -16,7 +16,7 @@ where store_id in (select id from public.stores where slug = 'loja-demo');
 
 insert into public.stores (name, slug, whatsapp, headline, delivery_minutes, minimum_order)
 values (
-  'Doce Encanto Demo',
+  'Doce Encanto',
   'loja-demo',
   '5599999999999',
   'Doces artesanais, kits presenteáveis e pedidos organizados para vender mais pelo WhatsApp.',
@@ -37,7 +37,7 @@ from public.stores s
 cross join (
   values
     ('Caixa Brigadeiros Gourmet', 'Nove brigadeiros artesanais em embalagem pronta para presente.', 'Mais pedidos', 49.90),
-    ('Kit Presente Especial', 'Selecao de doces finos com fita, tag e cartao para mensagem.', 'Presentes', 89.90),
+    ('Kit Presente Especial', 'Seleção de doces finos com fita, tag e cartão para mensagem.', 'Presentes', 89.90),
     ('Torta Chocolate Belga', 'Torta premium para celebrações, com cobertura cremosa e crocante.', 'Premium', 139.90),
     ('Combo Café da Tarde', 'Mini tortas e docinhos para reuniões pequenas ou entrega rápida.', 'Promoções', 64.90)
 ) as p(name, description, category, price)

@@ -1,6 +1,6 @@
 # Passo a passo para publicar o portfólio
 
-Este guia assume que o GitHub e o projeto Supabase ja foram criados.
+Este guia assume que o GitHub e o projeto Supabase já foram criados.
 
 ## Estado atual
 
@@ -25,6 +25,8 @@ supabase/reset_demo_data.sql
 
 Esse reset limpa os pedidos/produtos da loja demo e carrega a vitrine atual da doceria.
 
+Observação importante: o `schema.sql` atual permite manutenção pública do catálogo para facilitar a demonstração do portfólio. Para vender esse app para um cliente real, adicione login do lojista com Supabase Auth e restrinja criação/edição/exclusão por loja.
+
 Depois, confira no Table Editor:
 
 - `stores`
@@ -45,11 +47,15 @@ Teste:
 
 1. Adicionar produto ao carrinho.
 2. Abrir checkout.
-3. Preencher dados ficticios.
+3. Preencher dados fictícios.
 4. Registrar pedido.
 5. Conferir se abriu o WhatsApp.
 6. Conferir se `orders` recebeu o pedido.
 7. Conferir se `order_items` recebeu os itens.
+8. Abrir o painel do lojista.
+9. Criar um produto novo.
+10. Editar preço/descrição.
+11. Ocultar o produto e conferir se ele saiu da vitrine.
 
 ## 3. Tirar prints
 
@@ -65,7 +71,7 @@ Use estes nomes:
 01-vitrine.png
 02-busca-filtros.png
 03-checkout.png
-04-painel-pedidos.png
+04-painel-lojista.png
 ```
 
 Depois atualize o README para exibir as imagens.
