@@ -15,6 +15,6 @@ void main() {
     await tester.tap(find.byIcon(Icons.add).first);
     await tester.pump();
 
-    expect(find.textContaining('1 itens'), findsOneWidget);
+    expect(find.textContaining('1 item'), findsOneWidget);
   });
 }

@@ -1,11 +1,11 @@
 {
-    "name": "loja_na_mao",
-    "short_name": "loja_na_mao",
+    "name": "Loja na Mao",
+    "short_name": "Loja na Mao",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F7F4EC",
+    "theme_color": "#12312F",
+    "description": "Demo de portfolio Flutter e Supabase para catalogo, carrinho e pedidos via WhatsApp.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
