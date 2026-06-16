@@ -582,10 +582,20 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
       total: widget.cart.total,
     );
 
-    await widget.repository.createOrder(draft);
-    await launchUrl(Uri.parse(_whatsappUrl(widget.store.whatsapp, draft)));
+    try {
+      await widget.repository.createOrder(draft);
+      await launchUrl(Uri.parse(_whatsappUrl(widget.store.whatsapp, draft)));
 
-    if (mounted) Navigator.of(context).pop(true);
+      if (mounted) Navigator.of(context).pop(true);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => isSending = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Nao foi possivel registrar o pedido: $error'),
+        ),
+      );
+    }
   }
 }
 

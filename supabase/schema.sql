@@ -50,21 +50,42 @@ alter table public.products enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 
+drop policy if exists "Public stores are readable" on public.stores;
+drop policy if exists "Public products are readable" on public.products;
+drop policy if exists "Anyone can create orders" on public.orders;
+drop policy if exists "Orders are readable for demo panel" on public.orders;
+drop policy if exists "Anyone can create order items" on public.order_items;
+drop policy if exists "Order items are readable for demo panel" on public.order_items;
+
 create policy "Public stores are readable"
   on public.stores for select
+  to anon, authenticated
   using (true);
 
 create policy "Public products are readable"
   on public.products for select
+  to anon, authenticated
   using (is_available = true);
 
 create policy "Anyone can create orders"
   on public.orders for insert
+  to anon, authenticated
   with check (true);
+
+create policy "Orders are readable for demo panel"
+  on public.orders for select
+  to anon, authenticated
+  using (true);
 
 create policy "Anyone can create order items"
   on public.order_items for insert
+  to anon, authenticated
   with check (true);
+
+create policy "Order items are readable for demo panel"
+  on public.order_items for select
+  to anon, authenticated
+  using (true);
 
 insert into public.stores (name, slug, whatsapp, headline, delivery_minutes, minimum_order)
 values (
