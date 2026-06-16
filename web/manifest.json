@@ -1,11 +1,11 @@
 {
-    "name": "Loja na Mao",
-    "short_name": "Loja na Mao",
+    "name": "Loja na Mão",
+    "short_name": "Loja na Mão",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#F7F4EC",
     "theme_color": "#12312F",
-    "description": "Demo de portfolio Flutter e Supabase para catalogo, carrinho e pedidos via WhatsApp.",
+    "description": "Demo de portfólio Flutter e Supabase para catálogo, carrinho e pedidos via WhatsApp.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

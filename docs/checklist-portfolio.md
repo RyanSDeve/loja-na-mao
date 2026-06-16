@@ -1,4 +1,4 @@
-# Checklist de portfolio
+# Checklist de portfólio
 
 Use este checklist antes de divulgar o projeto no 99freelas.
 
@@ -9,8 +9,8 @@ Use este checklist antes de divulgar o projeto no 99freelas.
 - [ ] Pedido sendo salvo em `orders`.
 - [ ] Itens sendo salvos em `order_items`.
 - [ ] WhatsApp abrindo com a mensagem formatada.
-- [ ] GitHub publico atualizado.
-- [ ] README com descricao clara do problema e da solucao.
+- [ ] GitHub público atualizado.
+- [ ] README com descrição clara do problema e da solução.
 - [ ] Demo web publicada.
 - [ ] Link da demo no README.
 - [ ] Quatro prints adicionados ao README ou ao repositorio.
@@ -25,19 +25,19 @@ Use este checklist antes de divulgar o projeto no 99freelas.
 
 ## Antes de mandar para cliente
 
-- [ ] Conferir se nao existe chave secreta no repositorio.
+- [ ] Conferir se não existe chave secreta no repositório.
 - [ ] Conferir se o Supabase usa apenas anon key no app.
-- [ ] Conferir se os textos nao parecem placeholders.
+- [ ] Conferir se os textos não parecem placeholders.
 - [ ] Conferir no celular ou em viewport mobile.
 - [ ] Conferir no desktop web.
 - [ ] Conferir se o README abre bem no GitHub.
 
 ## Nivel ideal para divulgar
 
-O projeto esta pronto para divulgar quando voce tiver:
+O projeto está pronto para divulgar quando você tiver:
 
 - link web;
 - GitHub;
-- video;
+- vídeo;
 - prints;
-- descricao curta do valor para o negocio.
+- descrição curta do valor para o negócio.

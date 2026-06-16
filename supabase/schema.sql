@@ -92,7 +92,7 @@ values (
   'Doce Encanto Demo',
   'loja-demo',
   '5599999999999',
-  'Doces artesanais, kits presenteaveis e pedidos organizados para vender mais pelo WhatsApp.',
+  'Doces artesanais, kits presenteáveis e pedidos organizados para vender mais pelo WhatsApp.',
   45,
   25
 )
@@ -111,8 +111,8 @@ cross join (
   values
     ('Caixa Brigadeiros Gourmet', 'Nove brigadeiros artesanais em embalagem pronta para presente.', 'Mais pedidos', 49.90, null),
     ('Kit Presente Especial', 'Selecao de doces finos com fita, tag e cartao para mensagem.', 'Presentes', 89.90, null),
-    ('Torta Chocolate Belga', 'Torta premium para celebracoes, com cobertura cremosa e crocante.', 'Premium', 139.90, null),
-    ('Combo Cafe da Tarde', 'Mini tortas e docinhos para reunioes pequenas ou entrega rapida.', 'Promocoes', 64.90, null)
+    ('Torta Chocolate Belga', 'Torta premium para celebrações, com cobertura cremosa e crocante.', 'Premium', 139.90, null),
+    ('Combo Café da Tarde', 'Mini tortas e docinhos para reuniões pequenas ou entrega rápida.', 'Promoções', 64.90, null)
 ) as p(name, description, category, price, image_url)
 where s.slug = 'loja-demo'
 and not exists (

@@ -1,18 +1,18 @@
 # Texto para 99freelas
 
-## Titulo do projeto no portfolio
+## Título do projeto no portfólio
 
-App de catalogo e pedidos para pequenos comercios
+App de catálogo e pedidos para pequenos comércios
 
-## Descricao curta
+## Descrição curta
 
-Demo de app feito em Flutter e Supabase para pequenos comercios venderem pelo WhatsApp com catalogo, carrinho, checkout e painel de pedidos. A demonstracao usa uma doceria premium como exemplo, mas a estrutura pode ser adaptada para outros negocios.
+Demo de app para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho, checkout e painel de pedidos. A demonstração usa uma doceria premium como exemplo, mas a estrutura pode ser adaptada para outros negócios.
 
-## Descricao completa
+## Descrição completa
 
-Criei este projeto para demonstrar uma solucao real para negocios locais que ainda recebem pedidos de forma manual pelo WhatsApp. A demo simula uma doceria chamada Doce Encanto, com produtos presenteaveis, carrinho e pedido estruturado.
+Criei este projeto para demonstrar uma solução real para negócios locais que ainda recebem pedidos de forma manual pelo WhatsApp. A demo simula uma doceria chamada Doce Encanto, com produtos presenteáveis, carrinho e pedido estruturado.
 
-O app permite que o cliente veja produtos, filtre categorias, monte um carrinho, informe os dados de entrega e envie o pedido formatado para o WhatsApp da loja. Ao mesmo tempo, o pedido fica registrado em um backend Supabase, permitindo que o lojista acompanhe os pedidos recentes.
+O app permite que o cliente veja produtos, filtre categorias, monte um carrinho, informe os dados de entrega e envie o pedido formatado para o WhatsApp da loja. Ao mesmo tempo, o pedido fica registrado em um painel simples, permitindo que o lojista acompanhe os pedidos recentes.
 
 Funcionalidades demonstradas:
 
@@ -32,27 +32,27 @@ Stack:
 - PostgreSQL;
 - Row Level Security;
 - Material Design;
-- integracao com WhatsApp.
+- integração com WhatsApp.
 
-Esse modelo pode ser adaptado para restaurantes, docerias, lojas de roupas, lojas de presentes, prestadores de servico e outros pequenos negocios.
+Esse modelo pode ser adaptado para restaurantes, docerias, lojas de roupas, lojas de presentes, prestadores de serviço e outros pequenos negócios.
 
 ## Mensagem para proposta em projetos parecidos
 
-Ola! Posso te ajudar com esse projeto.
+Olá! Posso te ajudar com esse projeto.
 
-Trabalho com Flutter, FlutterFlow e Supabase, e consigo construir uma primeira versao funcional com telas bem organizadas, banco de dados, fluxo de pedido/orcamento e integracoes como WhatsApp.
+Trabalho com Flutter, FlutterFlow e Supabase, e consigo construir uma primeira versão funcional com telas bem organizadas, banco de dados, fluxo de pedido/orçamento e integrações como WhatsApp.
 
-Para comecar de forma segura, eu sugeriria um MVP com:
+Para começar de forma segura, eu sugeriria um MVP com:
 
-- tela principal para produtos ou servicos;
+- tela principal para produtos ou serviços;
 - cadastro/listagem usando Supabase;
-- fluxo de pedido, orcamento ou agendamento;
+- fluxo de pedido, orçamento ou agendamento;
 - painel simples para acompanhamento;
-- layout responsivo e facil de usar;
+- layout responsivo e fácil de usar;
 - comunicacao clara durante cada etapa.
 
-Tenho um projeto demo parecido no meu portfolio, com catalogo, carrinho, WhatsApp e backend Supabase. Posso adaptar essa estrutura para o seu negocio.
+Tenho um projeto demo parecido no meu portfólio, com catálogo, carrinho, WhatsApp e painel de pedidos. Posso adaptar essa estrutura para o seu negócio.
 
 ## Frase curta para bio/perfil
 
-Crio apps mobile e web com Flutter/FlutterFlow e Supabase para pequenos negocios que precisam vender, organizar pedidos ou digitalizar processos.
+Crio apps mobile e web com Flutter/FlutterFlow e Supabase para pequenos negócios que precisam vender, organizar pedidos ou digitalizar processos.

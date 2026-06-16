@@ -34,7 +34,7 @@ class LojaNaMaoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Loja na Mao',
+      title: 'Loja na Mão',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -133,7 +133,7 @@ class _StorefrontPageState extends State<StorefrontPage> {
           return Scaffold(
             appBar: const PortfolioTopBar(),
             body: ErrorState(
-              message: 'Nao foi possivel carregar a vitrine.',
+              message: 'Não foi possível carregar a vitrine.',
               onRetry: () {
                 _reload();
               },
@@ -334,12 +334,12 @@ class PortfolioTopBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Loja na Mao',
+                  'Loja na Mão',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
                 ),
                 Text(
-                  'Flutter + Supabase para negocios locais',
+                  'Pedidos online para negócios locais',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: mutedInk, fontSize: 12),
                 ),
@@ -416,7 +416,7 @@ class StorefrontMainColumn extends StatelessWidget {
         const SizedBox(height: 16),
         SectionHeader(
           title: selectedCategory == 'Todos' ? 'Produtos em destaque' : selectedCategory,
-          subtitle: '${products.length} opcoes prontas para pedido',
+          subtitle: '${products.length} opções prontas para pedido',
         ),
         const SizedBox(height: 10),
         if (products.isEmpty)
@@ -454,7 +454,7 @@ class PortfolioDemoBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Demo de portfolio para captar clientes',
+                  'Demonstração de app para pequenos negócios',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w900,
                         color: const Color(0xFF3F2E00),
@@ -462,7 +462,7 @@ class PortfolioDemoBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  'Catalogo, carrinho, pedido no WhatsApp e registro no Supabase em um fluxo vendavel para pequenos comercios.',
+                  'Catálogo, carrinho, pedido no WhatsApp e painel para acompanhar tudo em um só lugar.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: const Color(0xFF5C470A),
                         height: 1.25,
@@ -490,13 +490,13 @@ class BusinessImpactStrip extends StatelessWidget {
       ),
       ImpactItemData(
         icon: Icons.bolt_outlined,
-        title: 'Venda mais rapido',
+        title: 'Venda mais rápido',
         text: 'Cliente escolhe, soma e envia.',
       ),
       ImpactItemData(
         icon: Icons.storage_outlined,
-        title: 'Backend real',
-        text: 'Pedido registrado no Supabase.',
+        title: 'Pedido acompanhado',
+        text: 'Tudo fica salvo para consulta.',
       ),
     ];
 
@@ -708,7 +708,7 @@ class StoreHeroCopy extends StatelessWidget {
                 text: 'Min. ${money(store.minimumOrder)}',
               ),
               const InfoPill(icon: Icons.chat_outlined, text: 'WhatsApp'),
-              const InfoPill(icon: Icons.storage_outlined, text: 'Supabase'),
+              const InfoPill(icon: Icons.receipt_long_outlined, text: 'Pedidos salvos'),
             ],
           ),
         ],
@@ -796,7 +796,7 @@ class SearchAndFilters extends StatelessWidget {
           controller: controller,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search),
-            hintText: 'Buscar combos, kits ou promocoes',
+            hintText: 'Buscar combos, kits ou promoções',
           ),
           onChanged: onQueryChanged,
         ),
@@ -1005,7 +1005,7 @@ class ProductThumb extends StatelessWidget {
       'Mais pedidos' => Icons.local_fire_department_outlined,
       'Presentes' => Icons.redeem_outlined,
       'Premium' => Icons.diamond_outlined,
-      'Promocoes' => Icons.sell_outlined,
+      'Promoções' => Icons.sell_outlined,
       _ => Icons.local_mall_outlined,
     };
 
@@ -1046,7 +1046,7 @@ class EmptyProducts extends StatelessWidget {
             Text(
               query.isEmpty
                   ? 'Tente outra categoria da vitrine.'
-                  : 'Nao encontramos resultado para "$query".',
+                  : 'Não encontramos resultado para "$query".',
               textAlign: TextAlign.center,
               style: const TextStyle(color: mutedInk),
             ),
@@ -1082,7 +1082,7 @@ class PortfolioProofPanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'O que esta demo prova',
+                  'O que este app entrega',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w900,
                       ),
@@ -1090,18 +1090,18 @@ class PortfolioProofPanel extends StatelessWidget {
                 const SizedBox(height: 12),
                 const ProofItem(
                   icon: Icons.phone_iphone,
-                  title: 'App Flutter responsivo',
-                  text: 'Fluxo pronto para mobile e web.',
+                  title: 'Vitrine no celular',
+                  text: 'Produtos organizados para o cliente comprar rápido.',
                 ),
                 const ProofItem(
-                  icon: Icons.storage_outlined,
-                  title: 'Backend Supabase',
-                  text: 'Pedidos salvos em tabelas com RLS.',
+                  icon: Icons.receipt_long_outlined,
+                  title: 'Pedido registrado',
+                  text: 'O lojista acompanha tudo em um painel simples.',
                 ),
                 const ProofItem(
                   icon: Icons.chat_outlined,
-                  title: 'Conversao pelo WhatsApp',
-                  text: 'Pedido formatado para atendimento rapido.',
+                  title: 'Atendimento no WhatsApp',
+                  text: 'Mensagem pronta para responder com agilidade.',
                 ),
               ],
             ),
@@ -1322,7 +1322,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'O pedido sera salvo no Supabase e enviado formatado para o WhatsApp.',
+                  'O pedido fica registrado e também vai formatado para o WhatsApp.',
                   style: TextStyle(color: mutedInk),
                 ),
                 const SizedBox(height: 14),
@@ -1402,7 +1402,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                 TextField(
                   controller: addressController,
                   decoration: const InputDecoration(
-                    labelText: 'Endereco de entrega',
+                    labelText: 'Endereço de entrega',
                     prefixIcon: Icon(Icons.location_on_outlined),
                   ),
                 ),
@@ -1410,7 +1410,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                 TextField(
                   controller: notesController,
                   decoration: const InputDecoration(
-                    labelText: 'Observacoes',
+                    labelText: 'Observações',
                     prefixIcon: Icon(Icons.notes_outlined),
                   ),
                   minLines: 2,
@@ -1443,7 +1443,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
         phoneController.text.trim().isEmpty ||
         addressController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Preencha nome, WhatsApp e endereco.')),
+        const SnackBar(content: Text('Preencha nome, WhatsApp e endereço.')),
       );
       return;
     }
@@ -1469,7 +1469,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
       setState(() => isSending = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Nao foi possivel registrar o pedido: $error'),
+          content: Text('Não foi possível registrar o pedido: $error'),
         ),
       );
     }
@@ -1491,7 +1491,7 @@ class OrdersPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return ErrorState(
-              message: 'Nao foi possivel carregar os pedidos.',
+              message: 'Não foi possível carregar os pedidos.',
               onRetry: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
@@ -1523,7 +1523,7 @@ class OrdersPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       const Text(
-                        'Visao simples para provar que o pedido chega no backend.',
+                        'Visão simples para o lojista acompanhar os pedidos recebidos.',
                         style: TextStyle(color: mutedInk),
                       ),
                       const SizedBox(height: 14),
@@ -1778,7 +1778,7 @@ class StoreData {
         name: 'Doce Encanto Demo',
         whatsapp: '5599999999999',
         headline:
-            'Doces artesanais, kits presenteaveis e pedidos organizados para vender mais pelo WhatsApp.',
+            'Doces artesanais, kits presenteáveis e pedidos organizados para vender mais pelo WhatsApp.',
         deliveryMinutes: 45,
         minimumOrder: 25,
         isOpen: true,
@@ -1807,9 +1807,9 @@ class StoreData {
         ),
         Product(
           id: '4',
-          name: 'Combo Cafe da Tarde',
-          description: 'Mini tortas e docinhos para reunioes pequenas ou entrega rapida.',
-          category: 'Promocoes',
+          name: 'Combo Café da Tarde',
+          description: 'Mini tortas e docinhos para reuniões pequenas ou entrega rápida.',
+          category: 'Promoções',
           price: 64.90,
         ),
       ],
@@ -1960,7 +1960,7 @@ class OrderSummary {
       'new' => 'Novo',
       'confirmed' => 'Confirmado',
       'delivering' => 'Em entrega',
-      'done' => 'Concluido',
+      'done' => 'Concluído',
       'cancelled' => 'Cancelado',
       _ => status,
     };
@@ -1998,12 +1998,12 @@ String _whatsappUrl(String phone, OrderDraft draft) {
       .map((item) => '- ${item.quantity}x ${item.product.name}: ${money(item.subtotal)}')
       .join('\n');
   final message = Uri.encodeComponent(
-    'Ola! Quero fazer este pedido:\n\n'
+    'Olá! Quero fazer este pedido:\n\n'
     '$items\n\n'
     'Total: ${money(draft.total)}\n'
     'Nome: ${draft.customerName}\n'
     'Telefone: ${draft.customerPhone}\n'
-    'Endereco: ${draft.address}\n'
+    'Endereço: ${draft.address}\n'
     'Obs: ${draft.notes.isEmpty ? '-' : draft.notes}',
   );
   return 'https://wa.me/$phone?text=$message';

@@ -1,4 +1,4 @@
-# Roteiro de video
+# Roteiro de vídeo
 
 Tempo recomendado: 60 a 90 segundos.
 
@@ -9,12 +9,12 @@ Tempo recomendado: 60 a 90 segundos.
 Fale:
 
 ```text
-Esse e um app demo que desenvolvi para pequenos comercios que vendem pelo WhatsApp e precisam organizar melhor seus pedidos. Nesta demonstracao, usei uma doceria como exemplo.
+Esse é um app demo que desenvolvi para pequenos comércios que vendem pelo WhatsApp e precisam organizar melhor seus pedidos. Nesta demonstração, usei uma doceria como exemplo.
 ```
 
 Mostre a tela inicial.
 
-### 2. Catalogo
+### 2. Catálogo
 
 Fale:
 
@@ -39,17 +39,17 @@ Adicione um produto.
 Fale:
 
 ```text
-No checkout, o cliente informa nome, WhatsApp, endereco e observacoes.
+No checkout, o cliente informa nome, WhatsApp, endereço e observações.
 ```
 
 Preencha dados de exemplo.
 
-### 5. WhatsApp e backend
+### 5. WhatsApp e registro do pedido
 
 Fale:
 
 ```text
-Quando o pedido e registrado, ele fica salvo no Supabase e tambem e enviado formatado para o WhatsApp da loja.
+Quando o pedido é registrado, ele fica salvo para acompanhamento e também é enviado formatado para o WhatsApp da loja.
 ```
 
 Clique no botao de registrar.
@@ -59,7 +59,7 @@ Clique no botao de registrar.
 Fale:
 
 ```text
-O lojista tambem consegue acompanhar os pedidos recentes em um painel simples.
+O lojista também consegue acompanhar os pedidos recentes em um painel simples.
 ```
 
 Mostre a tela de pedidos.
@@ -69,13 +69,13 @@ Mostre a tela de pedidos.
 Fale:
 
 ```text
-Esse projeto foi feito com Flutter, Dart, Supabase e PostgreSQL. A estrutura pode ser adaptada para restaurantes, lojas, docerias e outros pequenos negocios.
+Esse projeto foi feito com Flutter, Dart, Supabase e PostgreSQL. A estrutura pode ser adaptada para restaurantes, lojas, docerias e outros pequenos negócios.
 ```
 
 ## Dicas de gravacao
 
 - Grave em tela mobile no Chrome DevTools.
 - Use dados ficticios.
-- Nao mostre chaves do Supabase.
+- Não mostre chaves do Supabase.
 - Deixe o zoom em 100%.
 - Grave sem pressa, mas corte pausas longas.

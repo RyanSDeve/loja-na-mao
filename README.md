@@ -1,8 +1,8 @@
-# Loja na Mao
+# Loja na Mão
 
-App demo de catalogo, carrinho e pedidos para pequenos comercios, criado com Flutter e Supabase.
+App demo para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho e pedidos organizados.
 
-> Projeto de portfolio com uma vitrine demonstrativa de doceria premium: o cliente escolhe produtos, monta o pedido, envia pelo WhatsApp e o pedido fica registrado no backend.
+> Projeto de portfólio com uma vitrine demonstrativa de doceria premium: o cliente escolhe produtos, monta o pedido, envia pelo WhatsApp e o pedido fica registrado para acompanhamento.
 
 ## Links
 
@@ -12,25 +12,25 @@ App demo de catalogo, carrinho e pedidos para pequenos comercios, criado com Flu
 
 ## Problema
 
-Muitos pequenos comercios vendem pelo WhatsApp, mas recebem pedidos desorganizados, sem padrao e sem historico centralizado. Isso atrasa o atendimento e dificulta acompanhar pedidos.
+Muitos pequenos comércios vendem pelo WhatsApp, mas recebem pedidos desorganizados, sem padrão e sem histórico centralizado. Isso atrasa o atendimento e dificulta acompanhar pedidos.
 
-## Solucao
+## Solução
 
-O Loja na Mao e uma base white-label para negocios locais. Nesta demo, ele aparece como **Doce Encanto**, uma doceria que vende caixas de brigadeiros, kits presenteaveis e tortas premium.
+O Loja na Mão é uma base white-label para negócios locais. Nesta demo, ele aparece como **Doce Encanto**, uma doceria que vende caixas de brigadeiros, kits presenteáveis e tortas premium.
 
-- catalogo de produtos com busca e categorias;
+- catálogo de produtos com busca e categorias;
 - carrinho com resumo do pedido;
 - checkout com dados do cliente;
 - envio do pedido formatado para WhatsApp;
-- registro do pedido no Supabase;
+- registro do pedido para acompanhamento;
 - painel simples de pedidos recentes.
 
 ## Resultado esperado para o cliente
 
 - pedidos mais organizados;
-- atendimento mais rapido no WhatsApp;
+- atendimento mais rápido no WhatsApp;
 - vitrine mais profissional;
-- menos perda de informacao;
+- menos perda de informação;
 - base pronta para evoluir com login, estoque, fotos e pagamento.
 
 ## Screenshots
@@ -41,7 +41,7 @@ Adicione os prints finais nesta pasta:
 assets/screenshots/
 ```
 
-Sugestao de prints:
+Sugestão de prints:
 
 | Tela | Arquivo |
 | --- | --- |
@@ -52,15 +52,15 @@ Sugestao de prints:
 
 ## Visual da demo
 
-O asset principal da vitrine esta em:
+O asset principal da vitrine está em:
 
 ```text
 assets/images/storefront-hero.png
 ```
 
-Ele foi criado para dar contexto comercial ao app: produto local, embalagem presenteavel, checkout no celular e sensacao de pedido pronto para WhatsApp.
+Ele foi criado para dar contexto comercial ao app: produto local, embalagem presenteável, checkout no celular e sensação de pedido pronto para WhatsApp.
 
-![Cena comercial da demo Loja na Mao](assets/images/storefront-hero.png)
+![Cena comercial da demo Loja na Mão](assets/images/storefront-hero.png)
 
 ## Funcionalidades
 
@@ -68,18 +68,18 @@ Ele foi criado para dar contexto comercial ao app: produto local, embalagem pres
 - Modo conectado ao Supabase via `--dart-define`.
 - Tabelas para lojas, produtos, pedidos e itens do pedido.
 - Row Level Security habilitado.
-- Politicas para leitura publica do catalogo e criacao de pedidos.
+- Políticas para leitura pública do catálogo e criação de pedidos.
 - Layout responsivo para mobile e web.
 
 ## Backend Supabase
 
-O schema inicial esta em:
+O schema inicial está em:
 
 ```text
 supabase/schema.sql
 ```
 
-Se voce ja rodou uma versao antiga da demo e quer limpar os dados antigos, use:
+Se você já rodou uma versão antiga da demo e quer limpar os dados antigos, use:
 
 ```text
 supabase/reset_demo_data.sql
@@ -88,7 +88,7 @@ supabase/reset_demo_data.sql
 Tabelas principais:
 
 - `stores`: dados da loja;
-- `products`: catalogo;
+- `products`: catálogo;
 - `orders`: pedidos;
 - `order_items`: itens do pedido.
 
@@ -128,20 +128,20 @@ build/web
 
 Pitch curto:
 
-> Desenvolvi uma demo de app para pequenos comercios venderem pelo WhatsApp com catalogo, carrinho e pedidos salvos no Supabase. A mesma estrutura pode ser adaptada para restaurantes, lojas, docerias, servicos locais e pequenos negocios.
+> Desenvolvi uma demo de app para pequenos comércios venderem pelo WhatsApp com catálogo, carrinho e pedidos salvos para acompanhamento. A mesma estrutura pode ser adaptada para restaurantes, lojas, docerias, serviços locais e pequenos negócios.
 
-## Proximas evolucoes
+## Próximas evoluções
 
 - Login do lojista com Supabase Auth.
-- Cadastro e edicao de produtos pelo app.
+- Cadastro e edição de produtos pelo app.
 - Upload de fotos com Supabase Storage.
 - Status do pedido em tempo real.
 - Dashboard de vendas.
-- Tema personalizavel por loja.
+- Tema personalizável por loja.
 
-## Documentacao do portfolio
+## Documentação do portfólio
 
-- [Passo a passo de publicacao](docs/passo-a-passo-publicacao.md)
-- [Checklist de portfolio](docs/checklist-portfolio.md)
-- [Roteiro de video](docs/roteiro-video.md)
+- [Passo a passo de publicação](docs/passo-a-passo-publicacao.md)
+- [Checklist de portfólio](docs/checklist-portfolio.md)
+- [Roteiro de vídeo](docs/roteiro-video.md)
 - [Texto para 99freelas](docs/texto-99freelas.md)

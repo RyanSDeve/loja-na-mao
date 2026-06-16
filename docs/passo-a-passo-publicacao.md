@@ -1,4 +1,4 @@
-# Passo a passo para publicar o portfolio
+# Passo a passo para publicar o portfólio
 
 Este guia assume que o GitHub e o projeto Supabase ja foram criados.
 
@@ -7,17 +7,17 @@ Este guia assume que o GitHub e o projeto Supabase ja foram criados.
 - GitHub: `https://github.com/RyanSDeve/loja-na-mao`
 - Supabase: projeto `loja-na-mao-demo`
 - App: Flutter web/mobile com modo demo e modo Supabase
-- Proximo objetivo: gerar prova visual e publicar um link de demonstracao
+- Próximo objetivo: gerar prova visual e publicar um link de demonstração
 
 ## 1. Validar o Supabase
 
-No Supabase, abra o SQL Editor e rode o conteudo de:
+No Supabase, abra o SQL Editor e rode o conteúdo de:
 
 ```text
 supabase/schema.sql
 ```
 
-Se aparecerem produtos antigos da primeira versao da demo, rode tambem:
+Se aparecerem produtos antigos da primeira versão da demo, rode também:
 
 ```text
 supabase/reset_demo_data.sql
@@ -70,7 +70,7 @@ Use estes nomes:
 
 Depois atualize o README para exibir as imagens.
 
-## 4. Gravar video curto
+## 4. Gravar vídeo curto
 
 Use o roteiro em:
 
@@ -125,7 +125,7 @@ Depois de adicionar prints e link:
 
 ```bash
 git add .
-git commit -m "Prepara portfolio publico"
+git commit -m "Prepara portfólio público"
 git push
 ```
 
@@ -135,7 +135,7 @@ Use:
 
 - link da demo web;
 - link do GitHub;
-- video curto;
+- vídeo curto;
 - texto em `docs/texto-99freelas.md`.
 
 ## Ordem recomendada
@@ -143,7 +143,7 @@ Use:
 1. Validar Supabase.
 2. Rodar app conectado.
 3. Gerar prints.
-4. Gravar video.
+4. Gravar vídeo.
 5. Publicar web.
 6. Atualizar README.
 7. Subir commit.
