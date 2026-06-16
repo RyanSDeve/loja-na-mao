@@ -403,6 +403,8 @@ class StorefrontMainColumn extends StatelessWidget {
         const PortfolioDemoBanner(),
         const SizedBox(height: 14),
         StoreHero(store: store),
+        const SizedBox(height: 12),
+        const BusinessImpactStrip(),
         const SizedBox(height: 18),
         SearchAndFilters(
           categories: categories,
@@ -475,6 +477,123 @@ class PortfolioDemoBanner extends StatelessWidget {
   }
 }
 
+class BusinessImpactStrip extends StatelessWidget {
+  const BusinessImpactStrip({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const items = [
+      ImpactItemData(
+        icon: Icons.fact_check_outlined,
+        title: 'Pedido padronizado',
+        text: 'Menos conversa perdida no WhatsApp.',
+      ),
+      ImpactItemData(
+        icon: Icons.bolt_outlined,
+        title: 'Venda mais rapido',
+        text: 'Cliente escolhe, soma e envia.',
+      ),
+      ImpactItemData(
+        icon: Icons.storage_outlined,
+        title: 'Backend real',
+        text: 'Pedido registrado no Supabase.',
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth >= 760) {
+          return Row(
+            children: [
+              for (var index = 0; index < items.length; index++) ...[
+                Expanded(child: ImpactItem(data: items[index])),
+                if (index != items.length - 1) const SizedBox(width: 10),
+              ],
+            ],
+          );
+        }
+
+        return SizedBox(
+          height: 108,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: items.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemBuilder: (context, index) {
+              return SizedBox(
+                width: 220,
+                child: ImpactItem(data: items[index]),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ImpactItemData {
+  const ImpactItemData({
+    required this.icon,
+    required this.title,
+    required this.text,
+  });
+
+  final IconData icon;
+  final String title;
+  final String text;
+}
+
+class ImpactItem extends StatelessWidget {
+  const ImpactItem({required this.data, super.key});
+
+  final ImpactItemData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: mint,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(data.icon, color: emerald, size: 20),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    data.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    data.text,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: mutedInk, fontSize: 12, height: 1.2),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class StoreHero extends StatelessWidget {
   const StoreHero({required this.store, super.key});
 
@@ -482,60 +601,101 @@ class StoreHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: forest,
-        borderRadius: BorderRadius.circular(8),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isWide = constraints.maxWidth >= 720;
+        return Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: forest,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: isWide
+              ? Row(
+                  children: [
+                    Expanded(child: StoreHeroCopy(store: store)),
+                    const SizedBox(width: 16),
+                    const Expanded(child: StoreHeroImage()),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const StoreHeroImage(),
+                    const SizedBox(height: 14),
+                    StoreHeroCopy(store: store),
+                  ],
+                ),
+        );
+      },
+    );
+  }
+}
+
+class StoreHeroImage extends StatelessWidget {
+  const StoreHeroImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: AspectRatio(
+        aspectRatio: 16 / 10,
+        child: Image.asset(
+          'assets/images/storefront-hero.png',
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+        ),
       ),
+    );
+  }
+}
+
+class StoreHeroCopy extends StatelessWidget {
+  const StoreHeroCopy({required this.store, super.key});
+
+  final Store store;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            width: 58,
+            height: 58,
+            decoration: BoxDecoration(
+              color: amber,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.local_mall_outlined, color: forest),
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Container(
-                width: 58,
-                height: 58,
-                decoration: BoxDecoration(
-                  color: amber,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.local_mall_outlined, color: forest),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 6,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Text(
-                          store.name,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                height: 1.05,
-                              ),
-                        ),
-                        StoreStatusChip(isOpen: store.isOpen),
-                      ],
+              Text(
+                store.name,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                      height: 1.05,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      store.headline,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.white.withValues(alpha: 0.86),
-                            height: 1.28,
-                          ),
-                    ),
-                  ],
-                ),
               ),
+              StoreStatusChip(isOpen: store.isOpen),
             ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            store.headline,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.88),
+                  height: 1.28,
+                ),
           ),
           const SizedBox(height: 18),
           Wrap(
@@ -842,8 +1002,8 @@ class ProductThumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icon = switch (category) {
-      'Mais vendidos' => Icons.local_fire_department_outlined,
-      'Kits' => Icons.redeem_outlined,
+      'Mais pedidos' => Icons.local_fire_department_outlined,
+      'Presentes' => Icons.redeem_outlined,
       'Premium' => Icons.diamond_outlined,
       'Promocoes' => Icons.sell_outlined,
       _ => Icons.local_mall_outlined,
@@ -1615,9 +1775,10 @@ class StoreData {
     return StoreData(
       store: const Store(
         id: 'demo-store',
-        name: 'Loja na Mao Demo',
+        name: 'Doce Encanto Demo',
         whatsapp: '5599999999999',
-        headline: 'Catalogo bonito, carrinho simples e pedidos organizados para vender pelo WhatsApp.',
+        headline:
+            'Doces artesanais, kits presenteaveis e pedidos organizados para vender mais pelo WhatsApp.',
         deliveryMinutes: 45,
         minimumOrder: 25,
         isOpen: true,
@@ -1625,31 +1786,31 @@ class StoreData {
       products: const [
         Product(
           id: '1',
-          name: 'Combo Executivo',
-          description: 'Prato principal, bebida e sobremesa para horario de almoco.',
-          category: 'Mais vendidos',
-          price: 34.90,
+          name: 'Caixa Brigadeiros Gourmet',
+          description: 'Nove brigadeiros artesanais em embalagem pronta para presente.',
+          category: 'Mais pedidos',
+          price: 49.90,
         ),
         Product(
           id: '2',
-          name: 'Kit Presente',
-          description: 'Caixa pronta para datas especiais com embalagem personalizada.',
-          category: 'Kits',
-          price: 79.90,
+          name: 'Kit Presente Especial',
+          description: 'Selecao de doces finos com fita, tag e cartao para mensagem.',
+          category: 'Presentes',
+          price: 89.90,
         ),
         Product(
           id: '3',
-          name: 'Produto Premium',
-          description: 'Opcao de maior margem para destacar no topo da vitrine.',
+          name: 'Torta Chocolate Belga',
+          description: 'Torta premium para celebracoes, com cobertura cremosa e crocante.',
           category: 'Premium',
-          price: 129.90,
+          price: 139.90,
         ),
         Product(
           id: '4',
-          name: 'Oferta da Semana',
-          description: 'Promocao com preco atrativo para acelerar pedidos pelo WhatsApp.',
+          name: 'Combo Cafe da Tarde',
+          description: 'Mini tortas e docinhos para reunioes pequenas ou entrega rapida.',
           category: 'Promocoes',
-          price: 24.90,
+          price: 64.90,
         ),
       ],
     );

@@ -2,7 +2,7 @@
 
 App demo de catalogo, carrinho e pedidos para pequenos comercios, criado com Flutter e Supabase.
 
-> Projeto de portfolio para mostrar uma solucao comercial real: o cliente escolhe produtos, monta o pedido, envia pelo WhatsApp e o pedido fica registrado no backend.
+> Projeto de portfolio com uma vitrine demonstrativa de doceria premium: o cliente escolhe produtos, monta o pedido, envia pelo WhatsApp e o pedido fica registrado no backend.
 
 ## Links
 
@@ -16,7 +16,7 @@ Muitos pequenos comercios vendem pelo WhatsApp, mas recebem pedidos desorganizad
 
 ## Solucao
 
-O Loja na Mao e uma vitrine digital simples para negocios locais:
+O Loja na Mao e uma base white-label para negocios locais. Nesta demo, ele aparece como **Doce Encanto**, uma doceria que vende caixas de brigadeiros, kits presenteaveis e tortas premium.
 
 - catalogo de produtos com busca e categorias;
 - carrinho com resumo do pedido;
@@ -24,6 +24,14 @@ O Loja na Mao e uma vitrine digital simples para negocios locais:
 - envio do pedido formatado para WhatsApp;
 - registro do pedido no Supabase;
 - painel simples de pedidos recentes.
+
+## Resultado esperado para o cliente
+
+- pedidos mais organizados;
+- atendimento mais rapido no WhatsApp;
+- vitrine mais profissional;
+- menos perda de informacao;
+- base pronta para evoluir com login, estoque, fotos e pagamento.
 
 ## Screenshots
 
@@ -42,6 +50,18 @@ Sugestao de prints:
 | Checkout | `assets/screenshots/03-checkout.png` |
 | Painel de pedidos | `assets/screenshots/04-painel-pedidos.png` |
 
+## Visual da demo
+
+O asset principal da vitrine esta em:
+
+```text
+assets/images/storefront-hero.png
+```
+
+Ele foi criado para dar contexto comercial ao app: produto local, embalagem presenteavel, checkout no celular e sensacao de pedido pronto para WhatsApp.
+
+![Cena comercial da demo Loja na Mao](assets/images/storefront-hero.png)
+
 ## Funcionalidades
 
 - Modo demo sem Supabase, usando dados locais.
@@ -57,6 +77,12 @@ O schema inicial esta em:
 
 ```text
 supabase/schema.sql
+```
+
+Se voce ja rodou uma versao antiga da demo e quer limpar os dados antigos, use:
+
+```text
+supabase/reset_demo_data.sql
 ```
 
 Tabelas principais:

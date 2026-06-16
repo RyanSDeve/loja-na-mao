@@ -1,0 +1,44 @@
+-- Opcional: use este arquivo apenas se quiser limpar os dados antigos da demo
+-- e carregar novamente a vitrine da doceria.
+
+delete from public.order_items
+where order_id in (
+  select id
+  from public.orders
+  where store_id in (select id from public.stores where slug = 'loja-demo')
+);
+
+delete from public.orders
+where store_id in (select id from public.stores where slug = 'loja-demo');
+
+delete from public.products
+where store_id in (select id from public.stores where slug = 'loja-demo');
+
+insert into public.stores (name, slug, whatsapp, headline, delivery_minutes, minimum_order)
+values (
+  'Doce Encanto Demo',
+  'loja-demo',
+  '5599999999999',
+  'Doces artesanais, kits presenteaveis e pedidos organizados para vender mais pelo WhatsApp.',
+  45,
+  25
+)
+on conflict (slug) do update set
+  name = excluded.name,
+  whatsapp = excluded.whatsapp,
+  headline = excluded.headline,
+  delivery_minutes = excluded.delivery_minutes,
+  minimum_order = excluded.minimum_order,
+  is_open = true;
+
+insert into public.products (store_id, name, description, category, price, image_url)
+select s.id, p.name, p.description, p.category, p.price, null
+from public.stores s
+cross join (
+  values
+    ('Caixa Brigadeiros Gourmet', 'Nove brigadeiros artesanais em embalagem pronta para presente.', 'Mais pedidos', 49.90),
+    ('Kit Presente Especial', 'Selecao de doces finos com fita, tag e cartao para mensagem.', 'Presentes', 89.90),
+    ('Torta Chocolate Belga', 'Torta premium para celebracoes, com cobertura cremosa e crocante.', 'Premium', 139.90),
+    ('Combo Cafe da Tarde', 'Mini tortas e docinhos para reunioes pequenas ou entrega rapida.', 'Promocoes', 64.90)
+) as p(name, description, category, price)
+where s.slug = 'loja-demo';

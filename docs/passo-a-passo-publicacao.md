@@ -17,6 +17,14 @@ No Supabase, abra o SQL Editor e rode o conteudo de:
 supabase/schema.sql
 ```
 
+Se aparecerem produtos antigos da primeira versao da demo, rode tambem:
+
+```text
+supabase/reset_demo_data.sql
+```
+
+Esse reset limpa os pedidos/produtos da loja demo e carrega a vitrine atual da doceria.
+
 Depois, confira no Table Editor:
 
 - `stores`

@@ -6,11 +6,11 @@ App de catalogo e pedidos para pequenos comercios
 
 ## Descricao curta
 
-Demo de app feito em Flutter e Supabase para pequenos comercios venderem pelo WhatsApp com catalogo, carrinho, checkout e painel de pedidos.
+Demo de app feito em Flutter e Supabase para pequenos comercios venderem pelo WhatsApp com catalogo, carrinho, checkout e painel de pedidos. A demonstracao usa uma doceria premium como exemplo, mas a estrutura pode ser adaptada para outros negocios.
 
 ## Descricao completa
 
-Criei este projeto para demonstrar uma solucao real para negocios locais que ainda recebem pedidos de forma manual pelo WhatsApp.
+Criei este projeto para demonstrar uma solucao real para negocios locais que ainda recebem pedidos de forma manual pelo WhatsApp. A demo simula uma doceria chamada Doce Encanto, com produtos presenteaveis, carrinho e pedido estruturado.
 
 O app permite que o cliente veja produtos, filtre categorias, monte um carrinho, informe os dados de entrega e envie o pedido formatado para o WhatsApp da loja. Ao mesmo tempo, o pedido fica registrado em um backend Supabase, permitindo que o lojista acompanhe os pedidos recentes.
 

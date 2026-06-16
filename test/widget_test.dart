@@ -8,11 +8,11 @@ void main() {
     await tester.pumpWidget(const LojaNaMaoApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('Loja na Mao Demo'), findsWidgets);
-    expect(find.text('Combo Executivo'), findsOneWidget);
+    expect(find.text('Doce Encanto Demo'), findsWidgets);
+    expect(find.text('Caixa Brigadeiros Gourmet'), findsOneWidget);
     expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
 
-    await tester.tap(find.byIcon(Icons.add).first);
+    await tester.tap(find.byIcon(Icons.add_shopping_cart).first);
     await tester.pump();
 
     expect(find.textContaining('1 item'), findsOneWidget);

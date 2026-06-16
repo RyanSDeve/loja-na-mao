@@ -89,24 +89,35 @@ create policy "Order items are readable for demo panel"
 
 insert into public.stores (name, slug, whatsapp, headline, delivery_minutes, minimum_order)
 values (
-  'Loja na Mao Demo',
+  'Doce Encanto Demo',
   'loja-demo',
   '5599999999999',
-  'Catalogo rapido, pedidos organizados e venda pelo WhatsApp.',
+  'Doces artesanais, kits presenteaveis e pedidos organizados para vender mais pelo WhatsApp.',
   45,
   25
 )
-on conflict (slug) do nothing;
+on conflict (slug) do update set
+  name = excluded.name,
+  whatsapp = excluded.whatsapp,
+  headline = excluded.headline,
+  delivery_minutes = excluded.delivery_minutes,
+  minimum_order = excluded.minimum_order,
+  is_open = true;
 
 insert into public.products (store_id, name, description, category, price, image_url)
 select s.id, p.name, p.description, p.category, p.price, p.image_url
 from public.stores s
 cross join (
   values
-    ('Combo Executivo', 'Produto campeao para almoco rapido com entrega local.', 'Mais vendidos', 34.90, null),
-    ('Kit Presente', 'Opcao pronta para datas comemorativas e pedidos de ultima hora.', 'Kits', 79.90, null),
-    ('Produto Premium', 'Item de maior margem para destacar a vitrine da loja.', 'Premium', 129.90, null),
-    ('Oferta da Semana', 'Produto promocional para aumentar conversao.', 'Promocoes', 24.90, null)
+    ('Caixa Brigadeiros Gourmet', 'Nove brigadeiros artesanais em embalagem pronta para presente.', 'Mais pedidos', 49.90, null),
+    ('Kit Presente Especial', 'Selecao de doces finos com fita, tag e cartao para mensagem.', 'Presentes', 89.90, null),
+    ('Torta Chocolate Belga', 'Torta premium para celebracoes, com cobertura cremosa e crocante.', 'Premium', 139.90, null),
+    ('Combo Cafe da Tarde', 'Mini tortas e docinhos para reunioes pequenas ou entrega rapida.', 'Promocoes', 64.90, null)
 ) as p(name, description, category, price, image_url)
 where s.slug = 'loja-demo'
-on conflict do nothing;
+and not exists (
+  select 1
+  from public.products existing
+  where existing.store_id = s.id
+    and existing.name = p.name
+);

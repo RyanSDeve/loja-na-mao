@@ -9,7 +9,7 @@ Tempo recomendado: 60 a 90 segundos.
 Fale:
 
 ```text
-Esse e um app demo que desenvolvi para pequenos comercios que vendem pelo WhatsApp e precisam organizar melhor seus pedidos.
+Esse e um app demo que desenvolvi para pequenos comercios que vendem pelo WhatsApp e precisam organizar melhor seus pedidos. Nesta demonstracao, usei uma doceria como exemplo.
 ```
 
 Mostre a tela inicial.
